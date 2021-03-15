@@ -14,8 +14,8 @@ app.get("/", function (req, res) {
     res.send("Home Page");
   });
   
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT;
   app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}. http://localhost:3000/`);
+    console.log(`Server is running on port ${PORT}. http://localhost:8000/`);
   });
   

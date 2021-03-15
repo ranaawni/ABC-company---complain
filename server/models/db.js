@@ -1,10 +1,11 @@
 const mysql = require("mysql");
 const connection = mysql.createPool({
-    host: "us-cdbr-east-03.cleardb.com",
-    user: "b1975620186c36",
-    password: "7aa4ae51",
-    database: "heroku_b727c40cfeb9a9e",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
   });
+
   
   connection.query("select 1 + 1", (err, rows) => {
     if (err) throw err;
