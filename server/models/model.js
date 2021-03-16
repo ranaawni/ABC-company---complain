@@ -1,24 +1,74 @@
 var connection = require("./db");
-console.log('outside model')
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const jwt_decode = require("jwt-decode");
 
 module.exports = {
+
+  //Add new customer user
+// router.post("/addcustomer", async (req, res) => {
+//   //Check if email is used!
+//   const addCust = await Customer.findOne({
+//     $or: [{ email: req.body.email }],
+//   });
+
+//   if (addCust) {
+//     return res.status(400).send("email used");
+//   }
+
+//   //Securing password
+//   const saltPassword = await bcrypt.genSalt(10);
+//   const securePassword = await bcrypt.hash(req.body.password, saltPassword);
+
+//   const firstname = req.body.firstname;
+//   const lastname = req.body.lastname;
+//   const email = req.body.email;
+//   const phone = req.body.phone;
+//   const password = securePassword;
+
+//   //Adding a new customer
+//   const newCust = await Customer.create({
+//     firstName: firstname,
+//     lastName: lastname,
+//     email: email,
+//     phoneNo: phone,
+//     password: password,
+//   });
+//   try {
+//     const saveUser = await newCust.save();
+//     res.send({ id: newCust._id });
+//   } catch (err) {
+//     res.status(400).send(err);
+//   }
+// });
 
   //add new user 
 
   addnewuser: (params, callback) => {
-    console.log('helloooo')
-  var queryStr = "Insert into user (user_id, first_name, last_name, email, phone_num, password, role ) values (?,?,?,?,?,?,?)";
+
+  var queryStr = "Insert into user ( first_name, last_name, email, phone_num, password, role ) values (?,?,?,?,?,?)";
   connection.query(queryStr, params, function (err, result) {
     callback(err, result);
     console.log("errror", err);
   });
 },
+
+//user login 
+
+ loginuser:(params, callback)=>{
+  console.log("model login")
+  var queryStr = `SELECT * FROM user WHERE email = ? `;
+  connection.query(queryStr , params, function(err , result){
+      console.log("login user is" ,result)
+      callback(err,result)
+  })
+},
     // get all complaints
     
     getcomplaint: (callback) => {
         console.log('helloooo')
-      var queryStr = "SELECT * FROM complaint ";
-      console.log("Modeeeeeel");
+      var queryStr = "SELECT * FROM complaint  ";
+      console.log("Modeeeeeel get");
       connection.query(queryStr, function (err, result) {
         callback(err, result);
         console.log("errror", err);

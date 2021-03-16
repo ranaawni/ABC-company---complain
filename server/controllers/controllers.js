@@ -5,21 +5,60 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const jwt_decode = require("jwt-decode");
 
-console.log("outsiide controllers");
-
-
 module.exports = {
 
   //add new user 
-  addnewuser: (req, res) => {
-    var params = [req.body.user_id, req.body.first_name,req.body.last_name, req.body.email, req.body.phone_num, req.body.password,req.body.role];
+  addnewuser: async (req, res) => {
+    console.log(req,'req from add new user controller')
+    var role = req.body.role;
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    console.log(req.body.firstname,"first name from new user controller")
+    var params = [req.body.firstname,req.body.lastname, req.body.email, req.body.phone, hashedPassword,req.body.role];
     model.addnewuser(params,function (err, results) {
       
       if (err) {
         console.log("error in add user controller", err);
       }
       console.log("Controllleeeer add user");
-      res.json(results);
+      res.send(results);
+    });
+  },
+
+  //login user 
+
+  loginuser: async (req, res) => {
+    var params = [req.body.email, req.body.password];
+    var password = req.body.password;
+    var email = req.body.email;
+
+    model.loginuser(params, async function (err, result) {
+      // console.log("database password from login controller",result[0].password)
+      if (result.length > 0) {
+        var id = result[0].user_id;
+        var role = result[0].role;
+        var userPassword = result[0].password;
+        // var userEmail = result[0].email;
+        // console.log('user email from login controller',userEmail );
+        console.log('user id from login controller',id)
+        console.log('role from login controller',role)
+        console.log("login body password from login controller",password)
+
+        //check if the password is correct
+        const validpass =  bcrypt.compare(password, userPassword);
+        console.log(validpass,'check valid user')
+        if (!validpass) return res.status(400).send("Password not correct");
+
+        //Authentication
+        const accessToken = jwt.sign(
+          {id :id },
+          `${process.env.JWT_KEY}`
+        );
+        console.log("tooken from login controller", accessToken);
+
+        res.json({ user_id: id, email: email, accessToken: accessToken });
+      } else {
+        res.send("User doesn't exist");
+      }
     });
   },
 
@@ -31,7 +70,7 @@ module.exports = {
             console.log("error in complaint controller", err);
           }
           console.log("Controllleeeer get comp");
-          res.json(results);
+          res.send(results);
         });
       },
     

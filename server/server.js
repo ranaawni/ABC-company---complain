@@ -48,8 +48,8 @@ app.use(express.static(path.join(__dirname, "client/public")));
 app.use(cors());
 
 app.use("/", router.router);
-app.use("/customer", router.router);
-app.use("/admin", router.router)
+// app.use("/customer", router.router);
+// app.use("/admin", router.router)
 
 app.get("/", function (req, res) {
   res.send("Home Page");
