@@ -10,8 +10,8 @@ export default class Signup extends Component {
     this.state = {
       first_name: "",
       last_name: "",
-      phone_num: "",
       email: "",
+      phone_num: "",
       password: "",
       role: "",
 
@@ -28,11 +28,7 @@ export default class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value });
 }
 
-  onClick(event) {
-    event.preventDefault();
-    this.onSubmit(this.state.value);
-    this.handleSubmit(this.state.value);
-  }
+ 
   validate = () => {
     let firstnameError = "";
     let lastnameError = "";
@@ -91,20 +87,30 @@ export default class Signup extends Component {
   };
 
   onSubmit() {
-    const customer = {
+    const user = {
       firstname: this.state.first_name,
       lastname: this.state.last_name,
-      phone: this.state.phone_num,
       email: this.state.email,
+      phone: this.state.phone_num,
       password: this.state.password,
       role: this.state.role,
     };
+    console.log('first name from signup onsubmit',user.firstname)
+    console.log('user info from signup', user)
     axios
-      .post("customer/addnewuser", customer)
+      .post("http://localhost:8000/signup", user)
       .then((res) => {
-        window.location = "/loginCustomer";
+        // window.location = "/signin";
+        console.log('useeer signup', user)
+      
       })
       .catch((err) => console.log(err));
+  }
+
+  onClick(event) {
+    event.preventDefault();
+    this.onSubmit(this.state.value);
+    this.handleSubmit(this.state.value);
   }
 
   render() {
@@ -124,12 +130,16 @@ export default class Signup extends Component {
                   <input required={true} className='email' type="text" name="email"  placeholder="Email" onChange={this.handleChange} value={this.setState.email}/>
                   <span style={{color: "red"}}>{this.state.emailError}</span>
                    <br/>
+                   <label for="txtPhone">Mobile Number</label>
+                  <input required={true} className='phone' type="text" name="phone_num"  placeholder="Mobile Number" onChange={this.handleChange} value={this.setState.phone_num}/>
+                  <span style={{color: "red"}}>{this.state.phoneError}</span>
+                   <br/>
                          <label for="txtPass">Password</label>
                          <input  required={true} className='pass' type="password" name="password"  placeholder="Password" onChange={this.handleChange} value={this.setState.password}/>
                          <span style={{color: "red"}}>{this.state.passwordError}</span>
                          <br/>
                          <label>Role</label>
-                         <select required={true} style={{marginLeft:'60px', width:'150px', height:'25px'}} oonChange={this.handleChange} value={this.setState.role}>
+                         <select required={true} name="role" style={{marginLeft:'60px', width:'150px', height:'25px'}} onChange={this.handleChange} value={this.setState.role}>
                             <option></option>
                             <option value="admin">Admin</option>
                             <option value="customer">Customer</option>

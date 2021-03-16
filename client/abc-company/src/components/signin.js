@@ -6,17 +6,17 @@ export default class Signin extends React.Component {
     constructor(props){
        super(props);
 
-    //    this.onChangeHandle = this.onChangeHandle.bind(this);
-    //    this.handleClick = this.handleClick.bind(this);
+       this.handleChange= this.handleChange.bind(this);
+       this.onClick = this.onClick.bind(this);
   
-       this.state = {
-        email: "",
-        password: "",
-        role: "",
-        emailError: "",
-        passwordError: "",
-        roleError: "",
-       }
+    this.state = {
+      email: "",
+      password: "",
+      role: "",
+      emailError: "",
+      passwordError: "",
+      roleError: "",
+    };
     }
 
     handleValidation(){
@@ -44,6 +44,13 @@ export default class Signin extends React.Component {
         }
         return true;
    }
+
+   handleSubmit = (event) => {
+    const isValid = this.handleValidation();
+    if (isValid) {
+      console.log(this.state);
+    }
+  };
     
    onClick(event) {
     event.preventDefault();
@@ -57,18 +64,19 @@ export default class Signin extends React.Component {
           password: this.state.password,
           role : this.state.role,
         };
+        console.log('user from onsubmit signin ', user)
         axios
-          .post("/signin", user)
+          .post("http://localhost:8000/signin", user)
           .then((res) => {
-            window.localStorage.setItem("token", res.data.token);
+            window.localStorage.setItem("token", res.data.accessToken);
             window.localStorage.setItem("email", user.email);
-            window.localStorage.setItem("user", user.role);
-            window.location = "/home";
+            window.localStorage.setItem("role", user.role);
+            window.location = "/allcomplaintCustomer";
           })
           .catch((err) => alert("wrong email or password"));
       }
 
-    handleChange( e){         
+    handleChange(e){         
         this.setState({ [e.target.name]: e.target.value });
     }
 
@@ -78,16 +86,16 @@ export default class Signin extends React.Component {
                <form name="contactform" className="contactform" >
                     <div className="col-md-6">
                       
-                         <label for="txtEmail">User Email</label>
-                         <input required={true} className='email' type="text" size="30" name='email' placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.setState.email}/>
-                         <span style={{color: "red"}}>{this.state.emailError}</span>
-                         <br/>
-                         <label for="txtPass">Password</label>
-                         <input  required={true} className='pass' type="password" size="30" name='password' placeholder="Password" onChange={this.handleChange.bind(this, "password")} value={this.setState.password}/>
-                         <span style={{color: "red"}}>{this.state.passwordError}</span>
-                         <br/>
+                    <label for="txtEmail">User Email</label>
+                  <input required={true} className='email' type="text" name="email"  placeholder="Email" onChange={this.handleChange} value={this.setState.email}/>
+                  <span style={{color: "red"}}>{this.state.emailError}</span>
+                   <br/>
+                   <label for="txtEmail">Password</label>
+                  <input required={true} className='password' type="password" name="password"  placeholder="Password" onChange={this.handleChange} value={this.setState.password}/>
+                  <span style={{color: "red"}}>{this.state.passwordError}</span>
+                   <br/>
                          <label>Role</label>
-                         <select required={true} name='role' style={{marginLeft:'60px', width:'150px', height:'25px'}} onChange={this.handleChange.bind(this, "role")} value={this.setState.role}>
+                         <select required={true} name='role' style={{marginLeft:'60px', width:'150px', height:'25px'}} onChange={this.handleChange} value={this.setState.role}>
                             <option></option>
                             <option value="admin">Admin</option>
                             <option value="customer">Customer</option>
