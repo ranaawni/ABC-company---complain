@@ -36,27 +36,12 @@
     transform: rotate(360deg);
   }
 }
-
-/* body {
-  text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-} */
-
-/* .mainDiv {
-  position: fixed;
-  top: 20%;
-  left: 43%;
-} */
-
 #welcoming {
   font-size: 25px;
   position: fixed;
   top: 30%;
   left: 10%;
-  color:  rgb(73, 81, 100);
-  
+  color: rgb(73, 81, 100);
 }
 
 #btnVisit {
@@ -69,16 +54,14 @@
   color: white;
 }
 
-
 #sideImg {
   position: fixed;
   background-color: #074455;
- 
 }
 
 #sideImg img {
   position: fixed;
-  top:0.3%;
+  top: 0.3%;
   bottom: 50%;
   left: 55%;
   height: 100%;
@@ -86,18 +69,15 @@
 }
 
 .contactform {
-  /* position: fixed;
-  top: 30%;
-  left: 40%; */
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 250px;
+  margin-top: 200px;
 }
 .contactform input {
   position: relative;
   padding: 5px;
-  margin-bottom:10px;
+  margin-bottom: 10px;
   /* left: 20%; */
 }
 
@@ -109,14 +89,11 @@
   margin-left: 30px;
 }
 
-
-
-
 .contactform label {
   margin-right: 20px;
 }
 
-.Customertable{
+.Customertable {
   margin-left: auto;
   margin-right: auto;
   margin-top: 150px;
@@ -130,3 +107,9 @@ td {
   border-collapse: collapse;
 }
 
+#addCompForm {
+  display: inline-block;
+  margin-top: 15%;
+  margin-left: 30%;
+  /* padding: "20px 40px 15px 40px"; */
+}

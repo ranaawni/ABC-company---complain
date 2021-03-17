@@ -20,15 +20,14 @@ export default class Signup extends Component {
       phoneError: "",
       emailError: "",
       passwordError: "",
-      roleError : "",
+      roleError: "",
     };
   }
 
-  handleChange( e){         
+  handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-}
+  }
 
- 
   validate = () => {
     let firstnameError = "";
     let lastnameError = "";
@@ -55,8 +54,8 @@ export default class Signup extends Component {
     }
 
     if (!this.state.role) {
-        roleError = "role is required";
-      }
+      roleError = "role is required";
+    }
 
     if (
       firstnameError ||
@@ -72,7 +71,7 @@ export default class Signup extends Component {
         emailError,
         phoneError,
         passwordError,
-        roleError
+        roleError,
       });
       return false;
     }
@@ -95,14 +94,13 @@ export default class Signup extends Component {
       password: this.state.password,
       role: this.state.role,
     };
-    console.log('first name from signup onsubmit',user.firstname)
-    console.log('user info from signup', user)
+    console.log("first name from signup onsubmit", user.firstname);
+    console.log("user info from signup", user);
     axios
       .post("http://localhost:8000/signup", user)
       .then((res) => {
-        // window.location = "/signin";
-        console.log('useeer signup', user)
-      
+        window.location = "/signin";
+        console.log("useeer signup", user);
       })
       .catch((err) => console.log(err));
   }
@@ -115,273 +113,114 @@ export default class Signup extends Component {
 
   render() {
     return (
-        <div id='formsignup'>
-            <form name="contactform" className="contactform" >
-               <div className="col-md-6">
-                  <label for="txtFirst">First Name</label>
-                  <input required={true} className='first' type="text" name="first_name" placeholder="First Name" onChange={this.handleChange} value={this.setState.first_name}/>
-                  <span style={{color: "red"}}>{this.state.emailError}</span>
-                   <br/>
-                  <label for="txtLast">Last Name</label>
-                  <input required={true} className='last' type="text" name="last_name"  placeholder="Last Name" onChange={this.handleChange} value={this.setState.last_name}/>
-                  <span style={{color: "red"}}>{this.state.emailError}</span>
-                   <br/>
-                  <label for="txtEmail">User Email</label>
-                  <input required={true} className='email' type="text" name="email"  placeholder="Email" onChange={this.handleChange} value={this.setState.email}/>
-                  <span style={{color: "red"}}>{this.state.emailError}</span>
-                   <br/>
-                   <label for="txtPhone">Mobile Number</label>
-                  <input required={true} className='phone' type="text" name="phone_num"  placeholder="Mobile Number" onChange={this.handleChange} value={this.setState.phone_num}/>
-                  <span style={{color: "red"}}>{this.state.phoneError}</span>
-                   <br/>
-                         <label for="txtPass">Password</label>
-                         <input  required={true} className='pass' type="password" name="password"  placeholder="Password" onChange={this.handleChange} value={this.setState.password}/>
-                         <span style={{color: "red"}}>{this.state.passwordError}</span>
-                         <br/>
-                         <label>Role</label>
-                         <select required={true} name="role" style={{marginLeft:'60px', width:'150px', height:'25px'}} onChange={this.handleChange} value={this.setState.role}>
-                            <option></option>
-                            <option value="admin">Admin</option>
-                            <option value="customer">Customer</option>
- 
-                         </select>
-                         <br/>
-                         <input
-                         style={{
-                             width: "100px",
-                             height: "40px",
-                             marginTop: "25px",
-                             marginLeft: "170px",
-                             color: "white",
-                             background: "#074455",
-                            fontWeight: "bold",
-                                }}
-                         type="button"
-                         value="Sign up"
-                         onClick={this.onClick}
-          />
-                         {/* <input refs="address" type="text" size="30" placeholder="Address" onChange={this.handleChange.bind(this, "address")} value={this.state.fields["address"]}/>
-                         <br/> */}
-                         <p>
-                         <a style={{textDecoration:"none", marginLeft:'150px'}} href='/signup'>I don't have account !</a>
-                         </p>
-                   
-                  </div>
-      
-              </form>
-        </div>
-    //   <div
-    //     style={{
-    //       width: "500px",
-    //       height: "650px",
-    //       border: "2px solid #4682B4E6",
-    //       padding: "30px 30px 30px 30px",
-    //       margin: "2% 0% 0% 35%",
+      <div id="formsignup">
+        <form name="contactform" className="contactform">
+          <div className="col-md-6">
+            <label for="txtFirst">First Name</label>
+            <input
+              required={true}
+              className="first"
+              type="text"
+              name="first_name"
+              placeholder="First Name"
+              onChange={this.handleChange}
+              value={this.setState.first_name}
+              style={{ marginLeft: "25px" }}
+            />
+            <span style={{ color: "red" }}>{this.state.emailError}</span>
+            <br />
+            <label for="txtLast">Last Name</label>
+            <input
+              required={true}
+              className="last"
+              type="text"
+              name="last_name"
+              placeholder="Last Name"
+              onChange={this.handleChange}
+              value={this.setState.last_name}
+              style={{ marginLeft: "25px" }}
+            />
+            <span style={{ color: "red" }}>{this.state.emailError}</span>
+            <br />
+            <label for="txtEmail">User Email</label>
+            <input
+              required={true}
+              className="email"
+              type="text"
+              name="email"
+              placeholder="Email"
+              onChange={this.handleChange}
+              value={this.setState.email}
+              style={{ marginLeft: "22px" }}
+            />
+            <span style={{ color: "red" }}>{this.state.emailError}</span>
+            <br />
+            <label for="txtPhone">Mobile Number</label>
+            <input
+              required={true}
+              className="phone"
+              type="text"
+              name="phone_num"
+              placeholder="Mobile Number"
+              onChange={this.handleChange}
+              value={this.setState.phone_num}
+              style={{ marginLeft: "-7px" }}
+            />
+            <span style={{ color: "red" }}>{this.state.phoneError}</span>
+            <br />
+            <label for="txtPass">Password</label>
+            <input
+              required={true}
+              className="pass"
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={this.handleChange}
+              value={this.setState.password}
+              style={{ marginLeft: "35px" }}
+            />
+            <span style={{ color: "red" }}>{this.state.passwordError}</span>
+            <br />
+            <label>Role</label>
+            <select
+              required={true}
+              name="role"
+              style={{ marginLeft: "60px", width: "150px", height: "25px" }}
+              onChange={this.handleChange}
+              value={this.setState.role}
+              style={{ marginLeft: "65px" }}
+            >
+              <option></option>
+              <option value="admin">Admin</option>
+              <option value="customer">Customer</option>
+            </select>
+            <br />
+            <input
+              style={{
+                width: "100px",
+                height: "40px",
+                marginTop: "25px",
+                marginLeft: "170px",
+                color: "white",
+                background: "#074455",
+                fontWeight: "bold",
+              }}
+              type="button"
+              value="Sign up"
+              onClick={this.onClick}
+            />
 
-    //       borderRadius: "10px",
-    //     }}
-    //   >
-    //     <b
-    //       style={{
-    //         marginLeft: "100px",
-    //         paddingBottom: "30px",
-    //         color: "#4682B4",
-    //       }}
-    //     >
-    //       sign up as an Admin?
-    //       <a
-    //         style={{
-    //           textDecoration: "none",
-    //           color: "#26468A",
-    //         }}
-    //         href="/signupA"
-    //       >
-    //         {" "}
-    //         sign up{" "}
-    //       </a>{" "}
-    //     </b>
-    //     <Form>
-    //       <Form.Group controlId="formBasicEmail">
-    //         <label
-    //           style={{
-    //             fontSize: "20px",
-    //             paddingBottom: "5px",
-    //           }}
-    //         >
-    //           First Name
-    //         </label>
-    //         <input
-    //           required={true}
-    //           name="firstname"
-    //           value={this.setState.firstname}
-    //           onChange={this.onChangeHandle}
-    //           type="text"
-    //           className="form-control"
-    //           style={{
-    //             height: "40px",
-    //           }}
-    //           placeholder="Enter First Name"
-    //           aria-label="Recipient's username"
-    //           aria-describedby="basic-addon2"
-    //         />
-    //         <div style={{ color: "red", fontSize: "15px" }}>
-    //           {this.state.firstnameError}
-    //         </div>
-    //         <br></br>
-    //       </Form.Group>
-
-    //       <Form.Group controlId="formBasicEmail">
-    //         <label
-    //           style={{
-    //             fontSize: "20px",
-    //             paddingBottom: "5px",
-    //           }}
-    //         >
-    //           Last Name
-    //         </label>
-    //         <input
-    //           required={true}
-    //           className="form-control col"
-    //           name="lastname"
-    //           value={this.setState.lastname}
-    //           onChange={this.onChangeHandle}
-    //           placeholder="Enter Last Name"
-    //           type="text"
-    //           style={{
-    //             height: "40px",
-    //           }}
-    //           aria-label="Recipient's username"
-    //           aria-describedby="basic-addon2"
-    //         />
-    //         <div style={{ color: "red", fontSize: "15px" }}>
-    //           {this.state.lastnameError}
-    //         </div>
-    //         <br></br>
-    //       </Form.Group>
-
-    //       <Form.Group controlId="formBasicEmail">
-    //         <label
-    //           style={{
-    //             fontSize: "20px",
-    //             paddingBottom: "5px",
-    //           }}
-    //         >
-    //           Phone No.
-    //         </label>
-    //         <input
-    //           value={this.setState.phone}
-    //           onChange={this.onChangeHandle}
-    //           name="phone"
-    //           placeholder="Enter Phone No."
-    //           required={true}
-    //           type="text"
-    //           className="form-control"
-    //           style={{
-    //             height: "40px",
-    //           }}
-    //           aria-label="Recipient's username"
-    //           aria-describedby="basic-addon2"
-    //         />
-    //         <div style={{ color: "red", fontSize: "15px" }}>
-    //           {this.state.phoneError}
-    //         </div>
-    //         <br></br>
-    //       </Form.Group>
-
-    //       <Form.Group controlId="formBasicEmail">
-    //         <label
-    //           style={{
-    //             fontSize: "20px",
-    //             paddingBottom: "5px",
-    //           }}
-    //         >
-    //           E-mail
-    //         </label>
-    //         <input
-    //           required={true}
-    //           className="form-control col"
-    //           name="email"
-    //           value={this.setState.email}
-    //           onChange={this.onChangeHandle}
-    //           placeholder="Enter E-mail"
-    //           type="text"
-    //           style={{
-    //             height: "40px",
-    //           }}
-    //           aria-label="Recipient's username"
-    //           aria-describedby="basic-addon2"
-    //         />
-    //         <div style={{ color: "red", fontSize: "15px" }}>
-    //           {this.state.emailError}
-    //         </div>
-    //       </Form.Group>
-
-    //       <Form.Group controlId="formBasicPassword">
-    //         <label
-    //           style={{
-    //             fontSize: "20px",
-    //             paddingBottom: "5px",
-    //             paddingTop: "20px",
-    //           }}
-    //         >
-    //           Password
-    //         </label>
-    //         <input
-    //           required={true}
-    //           type="password"
-    //           className="form-control col"
-    //           name="password"
-    //           value={this.setState.password}
-    //           onChange={this.onChangeHandle}
-    //           placeholder=" Enter Password"
-    //           style={{
-    //             height: "40px",
-    //           }}
-    //           aria-label="Recipient's username"
-    //           aria-describedby="basic-addon2"
-    //         />
-    //         <div style={{ color: "red", fontSize: "15px" }}>
-    //           {this.state.passwordError}
-    //         </div>
-    //       </Form.Group>
-    //       <input
-    //         style={{
-    //           width: "100px",
-    //           height: "40px",
-    //           borderRadius: "10px",
-    //           marginTop: "40px",
-    //           marginLeft: "170px",
-    //           color: "white",
-    //           background: "#26468A",
-    //           fontWeight: "bold",
-    //         }}
-    //         type="button"
-    //         value="Sign up"
-    //         onClick={this.handleClick}
-    //       />
-    //     </Form>
-    //     <b
-    //       style={{
-    //         marginLeft: "100px",
-    //         paddingBottom: "30px",
-    //         color: "#4682B4",
-    //       }}
-    //     >
-    //       Already have an account?
-    //       <a
-    //         style={{
-    //           textDecoration: "none",
-    //           color: "#26468A",
-    //         }}
-    //         href="/loginC"
-    //       >
-    //         {" "}
-    //         login{" "}
-    //       </a>{" "}
-    //     </b>
-    //   </div>
+            <p>
+              <a
+                style={{ textDecoration: "none", marginLeft: "150px" }}
+                href="/signin"
+              >
+                I have account !
+              </a>
+            </p>
+          </div>
+        </form>
+      </div>
     );
   }
 }
-
-

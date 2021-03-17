@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-
+import { Form, Button, Col } from "react-bootstrap";
+import "../App.css";
+import Navigation from "./navigation";
 
 export default class addComplaint extends Component {
   constructor(props) {
@@ -14,7 +16,7 @@ export default class addComplaint extends Component {
       title: "",
       description: "",
       type: "",
-      data:new Date(),
+      date: new Date(),
       status: "unresolved",
     };
   }
@@ -28,122 +30,94 @@ export default class addComplaint extends Component {
 
     let token = localStorage.getItem("token");
     var decoded = jwt_decode(token);
-    console.log(decoded,'decoded token')
+    console.log(decoded, "decoded token");
     let customerId = decoded.id;
 
     const complaint = {
       title: this.state.title,
-      description: this.state.description, 
+      description: this.state.description,
       type: this.state.type,
+      date: this.state.date,
+      status: this.state.status,
       customerId: customerId,
-      date:this.state.date,
     };
     axios
       .post("http://localhost:8000/addcomplaint", complaint)
-      .then((res) => console.log(res.data));
-    if (complaint.title || complaint.type || complaint.description) {
-      window.location = "/complaintsId";
-    } else alert("please fill all fields");
+      .then((res) => (window.location = "/allcomplaintCustomer"));
   }
   render() {
     return (
       <div>
-        <div className="container">
-          <form
-            style={{
-              width: "1100px",
-              padding: "20px 40px 15px 40px",
-              marginLeft: "100px",
-              border: "2px solid #4682B4E6",
-              borderRadius: "10px",
-            }}
-            action="#!"
-          >
-            <p
-              style={{
-                textALign: "center",
-                fontSize: "25px",
-                marginLeft: "435px",
-              }}
-            >
-              Write a complaint
-            </p>
-            <div className="col">
-              <label>Title</label>
-              <input
-                style={{
-                  width: "1000px",
-                  height: "60px",
-                }}
+        <Navigation />
+        <br />
+        <Form.Group id="addCompForm">
+          <Form.Row>
+            <Form.Label column="lg" lg={2}>
+              Complaint Title
+            </Form.Label>
+            <Col>
+              <Form.Control
+                as="textarea"
                 required={true}
-                type="text"
-                className="form-control"
                 name="title"
                 value={this.setState.title}
                 onChange={this.onChangeHandle}
-                text-align="center"
-                placeholder="Insert Item Name"
+                rows={2}
+                placeholder="Complaint Title"
+                style={{ width: "500px" }}
               />
-            </div>
-            <br />
-            <div className="col">
-              <label>Select type</label>
-              <select
-                style={{
-                  width: "1000px",
-                  height: "60px",
-                }}
-                ref="userInput"
+            </Col>
+          </Form.Row>
+          <br />
+          <Form.Row>
+            <Form.Label column lg={2}>
+              Complaint Type
+            </Form.Label>
+            <Col>
+              <Form.Control
+                as="select"
                 required={true}
-                className="form-control"
                 name="type"
                 value={this.setState.type}
                 onChange={this.onChangeHandle}
+                style={{ width: "500px", height: "30px" }}
               >
-                <option value=""></option>
-                <option value="Quality">Product Quality</option>
-                <option value="Delay">Delay</option>
-                <option value="Services">Customers Services</option>
-              </select>
-            </div>
-            <br />
-            <div className="col">
-              <label>Description </label>
-              <textarea
-                style={{
-                  width: "1000px",
-                  height: "200px",
-                }}
-                type="text"
+                <option>Choose...</option>
+                <option>Customer Service</option>
+                <option>Product Quality</option>
+              </Form.Control>
+            </Col>
+          </Form.Row>
+          <br />
+          <Form.Row>
+            <Form.Label column="sm" lg={2}>
+              Complaint Description
+            </Form.Label>
+            <Col>
+              <Form.Control
+                as="textarea"
                 required={true}
-                className="form-control"
                 name="description"
                 value={this.setState.description}
                 onChange={this.onChangeHandle}
-                placeholder="Please insert a description of your complain"
+                rows={5}
+                placeholder="Complaint Title"
+                style={{ width: "500px" }}
               />
-            </div>
-            <br />
-
-            <button
-              type="submit"
-              style={{
-                width: "200px",
-                height: "45px",
-                borderRadius: "10px",
-                marginTop: "20px",
-                marginLeft: "430px",
-                background: "#5083AD",
-                fontWeight: "bold",
-                fontSize: "20px",
-                color: "#D6D6D6",
-              }}
-              onClick={this.onSubmit}
-            >
-              Submit
-            </button>
-          </form>
-        </div>
+            </Col>
+          </Form.Row>
+          <Button
+            type="submit"
+            onClick={this.onSubmit}
+            style={{
+              backgroundColor: " rgb(73, 81, 100)",
+              height: "40px",
+              width: "90px",
+            }}
+          >
+            Submit
+          </Button>
+        </Form.Group>
       </div>
     );
   }
