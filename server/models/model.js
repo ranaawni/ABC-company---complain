@@ -85,5 +85,15 @@ module.exports = {
       });
     },
 
+    //edit complaint status from admin 
+    editcomplaint: (params, callback) => {
+      console.log(params,'edit model')
+      var queryStr = `Update complaint set status = ? where complaint_id = ?`;
+      connection.query(queryStr, params, function(err, results) {
+          callback(err, results)
+          console.log("error in edit complaint", err)
+      });
+    }
+
     
 };

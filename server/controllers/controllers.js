@@ -78,7 +78,8 @@ module.exports = {
       //add complain from client side
 
       addcomplaint: (req, res) => {
-        var params = [req.body.complaint_id, req.body.title,req.body.description, req.body.status, req.body.date, req.body.type,req.body.user_id];
+        console.log(req,'req from add comp controllers')
+        var params = [req.body.complaint_id, req.body.title,req.body.description, req.body.status, req.body.date, req.body.type,req.body.customerId];
         model.addcomplaint(params,function (err, results) {
           
           if (err) {
@@ -86,6 +87,17 @@ module.exports = {
           }
           console.log("Controllleeeer add comp");
           res.json(results);
+        });
+      },
+
+      //update status for one complaint from admin
+      editcomplaint: function(req, res){
+        console.log(req,'req edit controller')
+        var params = [req.body.status,req.params.complaint_id];
+        model.editcomplaint(params, function(err,results) {
+          if (err) {console.log("error updateone at complaint controller",err)}
+          console.log(req.body.complaint_id)
+          res.send('complaint updated')
         });
       },
     
